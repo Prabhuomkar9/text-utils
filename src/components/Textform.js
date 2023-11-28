@@ -49,25 +49,32 @@ function decode(text, cipherKey = text.length) {
 export default function Textform(props) {
     const handleUppercaseClick = () => {
         setText(text.toUpperCase());
+        props.showAlert("Converted to uppercase", "success");
     };
     const handleLowerCaseClick = () => {
         setText(text.toLowerCase());
+        props.showAlert("Converted to lowercase", "success");
     };
     const handleRemoveExtraSpaces = () => {
         let ans = text.split(/[ ]+/);
         setText(ans.join(" "));
+        props.showAlert("Removed extra spaces", "success");
     };
     const handleEncodeClick = () => {
         setText(encode(text));
+        props.showAlert("Text encoded", "success");
     };
     const handleDecodeClick = () => {
         setText(decode(text));
+        props.showAlert("Text decoded", "success");
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
+        props.showAlert("Text copied to clipboard", "success");
     };
     const handleClearClick = () => {
         setText("");
+        props.showAlert("Text cleared", "success");
     };
     const handleOnChange = (event) => {
         setText(event.target.value);
@@ -98,7 +105,6 @@ export default function Textform(props) {
                         }}
                         rows="8"></textarea>
                 </div>
-
                 <button
                     className="btn btn-primary mx-1"
                     onClick={handleUppercaseClick}>
@@ -136,11 +142,23 @@ export default function Textform(props) {
             <div className="container my-3">
                 <h2>Your Text Summary</h2>
                 <p>
-                    {text.length} characters and {text.split(" ").length} words
+                    {text.length} characters and{" "}
+                    {text.split(/[ ]+/).length -
+                        (text.length === 0 ||
+                        text.charAt(text.length - 1) === " "
+                            ? 1
+                            : 0)}{" "}
+                    words
                 </p>
                 <p>
                     One can read this text in approximately{" "}
-                    {text.split(" ").length * 0.008} minutes
+                    {(text.split(/[ ]+/).length -
+                        (text.length === 0 ||
+                        text.charAt(text.length - 1) === " "
+                            ? 1
+                            : 0)) *
+                        0.008}{" "}
+                    minutes
                 </p>
                 <h2>Preview</h2>
                 <p>
