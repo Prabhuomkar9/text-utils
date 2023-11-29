@@ -60,6 +60,11 @@ export default function Textform(props) {
         setText(ans.join(" "));
         props.showAlert("Removed extra spaces", "success");
     };
+    const handleRemoveUnwantedNewLines = () => {
+        let ans = text.split(/[\n]+/);
+        setText(ans.join("\n"));
+        props.showAlert("Removed unwanted new lines", "success");
+    };
     const handleEncodeClick = () => {
         setText(encode(text));
         props.showAlert("Text encoded", "success");
@@ -74,13 +79,25 @@ export default function Textform(props) {
     };
     const handleClearClick = () => {
         setText("");
+        setWordCount(0);
         props.showAlert("Text cleared", "success");
     };
     const handleOnChange = (event) => {
         setText(event.target.value);
+        handlingWordCount();
     };
 
     const [text, setText] = useState("");
+    const [wordCount, setWordCount] = useState(0);
+    const handlingWordCount = () => {
+        let localCount = text
+            .replaceAll("\n", " ")
+            .split(" ")
+            .filter((ele) => {
+                return ele.length > 0 && ele !== "\n";
+            }).length;
+        setWordCount(localCount);
+    };
 
     return (
         <>
@@ -100,72 +117,85 @@ export default function Textform(props) {
                         onChange={handleOnChange}
                         style={{
                             backgroundColor:
-                                props.mode === "dark" ? "#3f474f" : "white",
+                                props.mode === "dark" ? "#0b4068" : "white",
                             color: props.mode === "dark" ? "white" : "black",
                         }}
                         rows="8"></textarea>
                 </div>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleUppercaseClick}>
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={
+                        text.length === 0 ? undefined : handleUppercaseClick
+                    }>
                     Convert to Uppercase
                 </button>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleLowerCaseClick}>
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={
+                        text.length === 0 ? undefined : handleLowerCaseClick
+                    }>
                     Convert to Lowercase
                 </button>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleRemoveExtraSpaces}>
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={
+                        text.length === 0 ? undefined : handleRemoveExtraSpaces
+                    }>
                     Remove Extra Spaces
                 </button>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleEncodeClick}>
-                    Click to Encode
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={
+                        text.length === 0
+                            ? undefined
+                            : handleRemoveUnwantedNewLines
+                    }>
+                    Remove Unwanted New Lines
                 </button>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleDecodeClick}>
-                    Click to Decode
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={text.length === 0 ? undefined : handleEncodeClick}>
+                    Ceaser Cipher Encode
                 </button>
-                <button className="btn btn-primary mx-1" onClick={handleCopy}>
+                <button
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={text.length === 0 ? undefined : handleDecodeClick}>
+                    Ceaser Cipher Decode
+                </button>
+                <button
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={text.length === 0 ? undefined : handleCopy}>
                     Copy to Clipboard
                 </button>
                 <button
-                    className="btn btn-primary mx-1"
-                    onClick={handleClearClick}>
+                    className="btn btn-primary mx-1 my-1"
+                    onClick={text.length === 0 ? undefined : handleClearClick}>
                     Clear
                 </button>
             </div>
             <div className="container my-3">
                 <h2>Your Text Summary</h2>
-                <p>
-                    {text.length} characters and{" "}
-                    {text.split(/[ ]+/).length -
-                        (text.length === 0 ||
-                        text.charAt(text.length - 1) === " "
-                            ? 1
-                            : 0)}{" "}
-                    words
-                </p>
-                <p>
-                    One can read this text in approximately{" "}
-                    {(text.split(/[ ]+/).length -
-                        (text.length === 0 ||
-                        text.charAt(text.length - 1) === " "
-                            ? 1
-                            : 0)) *
-                        0.008}{" "}
-                    minutes
-                </p>
+                <div className="container">
+                    <p>Characters : {text.length}</p>
+                    <p>Words : {wordCount}</p>
+                    <p>Time required to read : {wordCount * 0.48} seconds</p>
+                </div>
                 <h2>Preview</h2>
-                <p>
-                    {text.length > 0
-                        ? text
-                        : "Enter something in textbox to preview"}
-                </p>
+                <div
+                    className="container p-2"
+                    style={{
+                        border: "1px solid grey",
+                        borderRadius: "10px",
+                        backgroundColor:
+                            props.mode === "dark" ? "#0b4068" : "white",
+                        color: props.mode === "dark" ? "white" : "black",
+                    }}>
+                    <plaintext>
+                        {text.length > 0
+                            ? text
+                            : "Enter something in textbox to preview"}
+                    </plaintext>
+                </div>
             </div>
         </>
     );
