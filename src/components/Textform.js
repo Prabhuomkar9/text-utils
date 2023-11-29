@@ -75,6 +75,7 @@ export default function Textform(props) {
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
+        document.getSelection().removeAllRanges();
         props.showAlert("Text copied to clipboard", "success");
     };
     const handleClearClick = () => {
@@ -84,20 +85,18 @@ export default function Textform(props) {
     };
     const handleOnChange = (event) => {
         setText(event.target.value);
-        handlingWordCount();
+        setWordCount(
+            event.target.value
+                .replaceAll("\n", " ")
+                .split(" ")
+                .filter((ele) => {
+                    return ele.length > 0 && ele !== "\n";
+                }).length
+        );
     };
 
     const [text, setText] = useState("");
     const [wordCount, setWordCount] = useState(0);
-    const handlingWordCount = () => {
-        let localCount = text
-            .replaceAll("\n", " ")
-            .split(" ")
-            .filter((ele) => {
-                return ele.length > 0 && ele !== "\n";
-            }).length;
-        setWordCount(localCount);
-    };
 
     return (
         <>
@@ -109,7 +108,7 @@ export default function Textform(props) {
                     color: props.mode === "dark" ? "white" : "black",
                 }}>
                 <div className="mb-3">
-                    <h2>{props.heading}</h2>
+                    <h1 className="mb-4">{props.heading}</h1>
                     <textarea
                         className="form-control"
                         id="exampleFormControlTextarea1"
@@ -124,52 +123,50 @@ export default function Textform(props) {
                 </div>
                 <button
                     className="btn btn-primary mx-1 my-1"
-                    onClick={
-                        text.length === 0 ? undefined : handleUppercaseClick
-                    }>
+                    disabled={text.length === 0}
+                    onClick={handleUppercaseClick}>
                     Convert to Uppercase
                 </button>
                 <button
                     className="btn btn-primary mx-1 my-1"
-                    onClick={
-                        text.length === 0 ? undefined : handleLowerCaseClick
-                    }>
+                    disabled={text.length === 0}
+                    onClick={handleLowerCaseClick}>
                     Convert to Lowercase
                 </button>
                 <button
                     className="btn btn-primary mx-1 my-1"
-                    onClick={
-                        text.length === 0 ? undefined : handleRemoveExtraSpaces
-                    }>
+                    disabled={text.length === 0}
+                    onClick={handleRemoveExtraSpaces}>
                     Remove Extra Spaces
                 </button>
                 <button
                     className="btn btn-primary mx-1 my-1"
-                    onClick={
-                        text.length === 0
-                            ? undefined
-                            : handleRemoveUnwantedNewLines
-                    }>
+                    disabled={text.length === 0}
+                    onClick={handleRemoveUnwantedNewLines}>
                     Remove Unwanted New Lines
                 </button>
                 <button
+                    disabled={text.length === 0}
                     className="btn btn-primary mx-1 my-1"
-                    onClick={text.length === 0 ? undefined : handleEncodeClick}>
+                    onClick={handleEncodeClick}>
                     Ceaser Cipher Encode
                 </button>
                 <button
+                    disabled={text.length === 0}
                     className="btn btn-primary mx-1 my-1"
-                    onClick={text.length === 0 ? undefined : handleDecodeClick}>
+                    onClick={handleDecodeClick}>
                     Ceaser Cipher Decode
                 </button>
                 <button
+                    disabled={text.length === 0}
                     className="btn btn-primary mx-1 my-1"
-                    onClick={text.length === 0 ? undefined : handleCopy}>
+                    onClick={handleCopy}>
                     Copy to Clipboard
                 </button>
                 <button
+                    disabled={text.length === 0}
                     className="btn btn-primary mx-1 my-1"
-                    onClick={text.length === 0 ? undefined : handleClearClick}>
+                    onClick={handleClearClick}>
                     Clear
                 </button>
             </div>
@@ -191,9 +188,7 @@ export default function Textform(props) {
                         color: props.mode === "dark" ? "white" : "black",
                     }}>
                     <plaintext>
-                        {text.length > 0
-                            ? text
-                            : "Enter something in textbox to preview"}
+                        {text.length > 0 ? text : "Nothing to preview"}
                     </plaintext>
                 </div>
             </div>
