@@ -2,7 +2,7 @@ import React from "react";
 
 export default function About(props) {
     let myStyle = {
-        backgroundColor: props.mode === "dark" ? "#072942" : "white",
+        backgroundColor: props.mode === "dark" ? props.pallete.bg : "white",
         color: props.mode === "dark" ? "white" : "black",
     };
     return (
@@ -92,12 +92,3 @@ export default function About(props) {
         </div>
     );
 }
-
-// Analyze your text
-// Textutils gives you a way to analyze your text quickly and efficiently. be it count, character cwnt or
-// Free to use
-// Textutiis is a free character counter that provides instant character count ?oed count statistics for a given
-// text. Textutiis reports the nu?ber of and characters. Thus it is suitable for ?eiting text Sith sord/ character
-// Ifni t.
-// this software in any web such as Chro?e. 'ir?fox. Internet Explorer, Safari,
-// suits to coa."t characters in blog, books, excel docta?ent, pdf essays. etc.

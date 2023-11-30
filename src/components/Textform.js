@@ -1,87 +1,45 @@
 import React, { useState } from "react";
-
-function encode(text, cipherKey = text.length) {
-    let ans = "";
-    for (let index = 0; index < text.length; index++) {
-        let currentChar = text[index];
-        if (/[^a-zA-Z]/.test(currentChar)) {
-            ans += currentChar;
-        } else {
-            let isUpperCase = currentChar === currentChar.toUpperCase();
-            let baseCharCode = isUpperCase
-                ? "A".charCodeAt(0)
-                : "a".charCodeAt(0);
-
-            ans += String.fromCharCode(
-                baseCharCode +
-                    ((currentChar.charCodeAt(0) - baseCharCode + cipherKey) %
-                        26)
-            );
-        }
-    }
-    return ans;
-}
-
-function decode(text, cipherKey = text.length) {
-    let ans = "";
-    for (let index = 0; index < text.length; index++) {
-        let currentChar = text[index];
-        if (/[^a-zA-Z]/.test(currentChar)) {
-            ans += currentChar;
-        } else {
-            let isUpperCase = currentChar === currentChar.toUpperCase();
-            let baseCharCode = isUpperCase
-                ? "A".charCodeAt(0)
-                : "a".charCodeAt(0);
-
-            let decodedCharCode =
-                baseCharCode +
-                ((currentChar.charCodeAt(0) - baseCharCode - cipherKey) % 26);
-
-            if (decodedCharCode < baseCharCode) decodedCharCode += 26;
-
-            ans += String.fromCharCode(decodedCharCode);
-        }
-    }
-    return ans;
-}
+import { encode, decode } from "../logic/ceaser_cipher";
 
 export default function Textform(props) {
     const handleUppercaseClick = () => {
         setText(text.toUpperCase());
-        props.showAlert("Converted to uppercase", "success");
+        props.showAlert("Converted to uppercase", props.pallete[props.mode]);
     };
     const handleLowerCaseClick = () => {
         setText(text.toLowerCase());
-        props.showAlert("Converted to lowercase", "success");
+        props.showAlert("Converted to lowercase", props.pallete[props.mode]);
     };
     const handleRemoveExtraSpaces = () => {
         let ans = text.split(/[ ]+/);
         setText(ans.join(" "));
-        props.showAlert("Removed extra spaces", "success");
+        props.showAlert("Removed extra spaces", props.pallete[props.mode]);
     };
     const handleRemoveUnwantedNewLines = () => {
         let ans = text.split(/[\n]+/);
         setText(ans.join("\n"));
-        props.showAlert("Removed unwanted new lines", "success");
+        props.showAlert(
+            "Removed unwanted new lines",
+            props.pallete[props.mode]
+        );
     };
     const handleEncodeClick = () => {
         setText(encode(text));
-        props.showAlert("Text encoded", "success");
+        props.showAlert("Text encoded", props.pallete[props.mode]);
     };
     const handleDecodeClick = () => {
         setText(decode(text));
-        props.showAlert("Text decoded", "success");
+        props.showAlert("Text decoded", props.pallete[props.mode]);
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
         document.getSelection().removeAllRanges();
-        props.showAlert("Text copied to clipboard", "success");
+        props.showAlert("Text copied to clipboard", props.pallete[props.mode]);
     };
     const handleClearClick = () => {
         setText("");
         setWordCount(0);
-        props.showAlert("Text cleared", "success");
+        props.showAlert("Text cleared", props.pallete[props.mode]);
     };
     const handleOnChange = (event) => {
         setText(event.target.value);
@@ -104,8 +62,11 @@ export default function Textform(props) {
                 className="container"
                 style={{
                     backgroundColor:
-                        props.mode === "dark" ? "#072942" : "white",
-                    color: props.mode === "dark" ? "white" : "black",
+                        props.mode === "dark"
+                            ? props.pallete.bg
+                            : props.pallete.bgLight,
+                    color:
+                        props.mode === "dark" ? props.pallete.color : "black",
                 }}>
                 <div className="mb-3">
                     <h1 className="mb-4">{props.heading}</h1>
@@ -116,56 +77,93 @@ export default function Textform(props) {
                         onChange={handleOnChange}
                         style={{
                             backgroundColor:
-                                props.mode === "dark" ? "#0b4068" : "white",
-                            color: props.mode === "dark" ? "white" : "black",
+                                props.mode === "dark"
+                                    ? props.pallete.bgHeaderDark
+                                    : props.pallete.bgHeaderLight,
+                            color:
+                                props.mode === "dark"
+                                    ? props.pallete.color
+                                    : "black",
                         }}
                         rows="8"></textarea>
                 </div>
                 <button
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     disabled={text.length === 0}
                     onClick={handleUppercaseClick}>
                     Convert to Uppercase
                 </button>
                 <button
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     disabled={text.length === 0}
                     onClick={handleLowerCaseClick}>
                     Convert to Lowercase
                 </button>
                 <button
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     disabled={text.length === 0}
                     onClick={handleRemoveExtraSpaces}>
                     Remove Extra Spaces
                 </button>
                 <button
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     disabled={text.length === 0}
                     onClick={handleRemoveUnwantedNewLines}>
                     Remove Unwanted New Lines
                 </button>
                 <button
                     disabled={text.length === 0}
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     onClick={handleEncodeClick}>
                     Ceaser Cipher Encode
                 </button>
                 <button
                     disabled={text.length === 0}
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     onClick={handleDecodeClick}>
                     Ceaser Cipher Decode
                 </button>
                 <button
                     disabled={text.length === 0}
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     onClick={handleCopy}>
                     Copy to Clipboard
                 </button>
                 <button
                     disabled={text.length === 0}
-                    className="btn btn-primary mx-1 my-1"
+                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    style={{
+                        borderColor: "rgb(209,213,216)",
+                        color: "white",
+                    }}
                     onClick={handleClearClick}>
                     Clear
                 </button>
@@ -181,11 +179,17 @@ export default function Textform(props) {
                 <div
                     className="container p-2"
                     style={{
-                        border: "1px solid grey",
+                        border: "1px solid #dee2e6",
                         borderRadius: "10px",
                         backgroundColor:
-                            props.mode === "dark" ? "#0b4068" : "white",
-                        color: props.mode === "dark" ? "white" : "black",
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
+                        color:
+                            props.mode === "dark"
+                                ? props.pallete.color
+                                : "black",
+                        opacity: "0.65",
                     }}>
                     <plaintext>
                         {text.length > 0 ? text : "Nothing to preview"}

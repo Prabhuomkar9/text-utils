@@ -6,9 +6,21 @@ export default function Navbar(props) {
     return (
         <>
             <nav
-                className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
+                className="navbar navbar-expand-lg"
+                style={{
+                    background:
+                        props.mode === "light"
+                            ? props.pallete.bgHeaderLight
+                            : props.pallete.bgHeaderDark,
+                    color: props.mode === "light" ? "black" : "white",
+                }}>
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to="/">
+                    <Link
+                        className="navbar-brand"
+                        style={{
+                            color: props.mode === "dark" ? "white" : "black",
+                        }}
+                        to="/">
                         {props.title}
                     </Link>
                     <button
@@ -29,46 +41,123 @@ export default function Navbar(props) {
                                 <Link
                                     className="nav-link active"
                                     aria-current="page"
+                                    style={{
+                                        color:
+                                            props.mode === "dark"
+                                                ? "white"
+                                                : "black",
+                                    }}
                                     to="/">
                                     Home
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/about">
+                                <Link
+                                    className="nav-link"
+                                    style={{
+                                        color:
+                                            props.mode === "dark"
+                                                ? "white"
+                                                : "black",
+                                    }}
+                                    to="/about">
                                     About
                                 </Link>
                             </li>
                         </ul>
-                        <div
-                            className={`form-check form-switch bg-${props.mode}`}>
+                        <div className="d-flex my-2">
+                            <div
+                                className={`bg-${
+                                    props.mode === "dark" &&
+                                    props.pallete.name === "success"
+                                        ? "light"
+                                        : "success"
+                                } rounded mx-2`}
+                                style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("success");
+                                }}></div>
+                            <div
+                                className={`bg-${
+                                    props.mode === "dark" &&
+                                    props.pallete.name === "primary"
+                                        ? "light"
+                                        : "primary"
+                                } rounded mx-2`}
+                                style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("primary");
+                                }}></div>
+                            <div
+                                className={`bg-${
+                                    props.mode === "dark" &&
+                                    props.pallete.name === "warning"
+                                        ? "light"
+                                        : "warning"
+                                } rounded mx-2`}
+                                style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("warning");
+                                }}></div>
+                            <div
+                                className={`bg-${
+                                    props.mode === "dark" &&
+                                    props.pallete.name === "danger"
+                                        ? "light"
+                                        : "danger"
+                                } rounded mx-2`}
+                                style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("danger");
+                                }}></div>
+                            <div
+                                className={`bg-${
+                                    props.mode === "dark" &&
+                                    props.pallete.name === "dark"
+                                        ? "light"
+                                        : "dark"
+                                } rounded mx-2`}
+                                style={{
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("dark");
+                                }}></div>
+                        </div>
+                        <div className="form-check form-switch">
                             <input
-                                className="form-check-input"
+                                className="btn-check"
                                 type="checkbox"
-                                role="switch"
-                                id="flexSwitchCheckDefault"
+                                id="btn-check-4"
+                                autoComplete="off"
                                 onClick={props.toggleMode}
                             />
                             <label
-                                className={`form-check-label text-${
+                                className={`btn text-${
                                     props.mode === "dark" ? "light" : "dark"
                                 }`}
-                                htmlFor="flexSwitchCheckDefault">
-                                Switch Mode
+                                htmlFor="btn-check-4">
+                                Toggle Mode
                             </label>
                         </div>
-                        {/* <form className="d-flex" role="search">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button
-                                className="btn btn-outline-success"
-                                type="submit">
-                                Search
-                            </button>
-                        </form> */}
                     </div>
                 </div>
             </nav>
