@@ -33,7 +33,6 @@ export default function Textform(props) {
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
-        document.getSelection().removeAllRanges();
         props.showAlert("Text copied to clipboard", props.pallete[props.mode]);
     };
     const handleClearClick = () => {
