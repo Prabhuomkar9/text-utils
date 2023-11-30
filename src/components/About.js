@@ -1,8 +1,16 @@
 import React from "react";
 
 export default function About(props) {
+    let myStyleHeader = {
+        backgroundColor:
+            props.mode === "dark"
+                ? props.pallete.bgHeaderDark
+                : props.pallete.bgHeaderLight,
+        color: props.mode === "dark" ? "white" : "black",
+    };
     let myStyle = {
-        backgroundColor: props.mode === "dark" ? props.pallete.bg : "white",
+        backgroundColor:
+            props.mode === "dark" ? props.pallete.bg : props.pallete.bgLight,
         color: props.mode === "dark" ? "white" : "black",
     };
     return (
@@ -13,7 +21,7 @@ export default function About(props) {
                     <h2 className="accordion-header">
                         <button
                             className="accordion-button"
-                            style={myStyle}
+                            style={myStyleHeader}
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseOne"
@@ -39,7 +47,7 @@ export default function About(props) {
                         <button
                             className="accordion-button collapsed"
                             type="button"
-                            style={myStyle}
+                            style={myStyleHeader}
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseTwo"
                             aria-expanded="false"
@@ -66,7 +74,7 @@ export default function About(props) {
                         <button
                             className="accordion-button collapsed"
                             type="button"
-                            style={myStyle}
+                            style={myStyleHeader}
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseThree"
                             aria-expanded="false"

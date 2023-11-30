@@ -76,10 +76,6 @@ function App() {
 
     const updatePallete = (color) => {
         setPallete(palletes[color]);
-        document.body.style.backgroundColor =
-            mode === "light" ? palletes[color].bgLight : palletes[color].bg;
-        document.body.style.color =
-            mode === "light" ? "black" : palletes[color].color;
     };
 
     const toggleMode = () => {
@@ -98,6 +94,7 @@ function App() {
 
     document.body.style.backgroundColor =
         mode === "light" ? pallete.bgLight : pallete.bg;
+    document.body.style.color = mode === "light" ? "black" : pallete.color;
 
     return (
         <BrowserRouter>
