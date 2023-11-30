@@ -13,6 +13,17 @@ export default function About(props) {
             props.mode === "dark" ? props.pallete.bg : props.pallete.bgLight,
         color: props.mode === "dark" ? "white" : "black",
     };
+
+    var accordionButtons = document.getElementsByClassName("accordion-button");
+    if (accordionButtons.length > 0) {
+        for (var i = 0; i < accordionButtons.length; i++) {
+            accordionButtons[i].style.setProperty(
+                "--after-filter",
+                props.mode === "dark" ? "invert(1)" : "invert(0)"
+            );
+        }
+    }
+
     return (
         <div className="container" style={myStyle}>
             <h1>About Us</h1>
