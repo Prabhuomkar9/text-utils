@@ -148,7 +148,7 @@ export default function Textform(props) {
                     }}
                     disabled={text.length === 0}
                     onClick={handleRemoveExtraSpaces}>
-                    rm Extra space
+                    Remove Extra Space
                 </button>
                 <button
                     className={"btn mx-1 my-1"}
@@ -162,7 +162,7 @@ export default function Textform(props) {
                     }}
                     disabled={text.length === 0}
                     onClick={handleRemoveUnwantedNewLines}>
-                    rm Extra newLine
+                    Remove Empty Line
                 </button>
                 <button
                     className={"btn mx-1 my-1"}
