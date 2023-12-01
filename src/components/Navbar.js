@@ -26,12 +26,21 @@ export default function Navbar(props) {
                     <button
                         className="navbar-toggler"
                         type="button"
+                        style={{
+                            borderColor:
+                                props.mode === "dark" ? "white" : "black",
+                        }}
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span
+                            className="navbar-toggler-icon"
+                            style={{
+                                filter:
+                                    props.mode === "dark" ? "invert(1)" : "",
+                            }}></span>
                     </button>
                     <div
                         className="collapse navbar-collapse"
@@ -67,13 +76,28 @@ export default function Navbar(props) {
                         </ul>
                         <div className="d-flex my-2">
                             <div
-                                className={`bg-${
-                                    props.mode === "dark" &&
-                                    props.pallete.name === "success"
-                                        ? "light"
-                                        : "success"
-                                } rounded mx-2`}
+                                className={"rounded mx-2"}
                                 style={{
+                                    backgroundColor:
+                                        props.mode === "dark" &&
+                                        props.pallete.name === "dark"
+                                            ? "white"
+                                            : "#212529",
+                                    height: "30px",
+                                    width: "30px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                    props.updatePallete("dark");
+                                }}></div>
+                            <div
+                                className={"rounded mx-2"}
+                                style={{
+                                    backgroundColor:
+                                        props.mode === "dark" &&
+                                        props.pallete.name === "success"
+                                            ? "white"
+                                            : "#0b4429",
                                     height: "30px",
                                     width: "30px",
                                     cursor: "pointer",
@@ -82,13 +106,13 @@ export default function Navbar(props) {
                                     props.updatePallete("success");
                                 }}></div>
                             <div
-                                className={`bg-${
-                                    props.mode === "dark" &&
-                                    props.pallete.name === "primary"
-                                        ? "light"
-                                        : "primary"
-                                } rounded mx-2`}
+                                className={"rounded mx-2"}
                                 style={{
+                                    backgroundColor:
+                                        props.mode === "dark" &&
+                                        props.pallete.name === "primary"
+                                            ? "white"
+                                            : "#00245d",
                                     height: "30px",
                                     width: "30px",
                                     cursor: "pointer",
@@ -97,13 +121,13 @@ export default function Navbar(props) {
                                     props.updatePallete("primary");
                                 }}></div>
                             <div
-                                className={`bg-${
-                                    props.mode === "dark" &&
-                                    props.pallete.name === "warning"
-                                        ? "light"
-                                        : "warning"
-                                } rounded mx-2`}
+                                className={"rounded mx-2"}
                                 style={{
+                                    backgroundColor:
+                                        props.mode === "dark" &&
+                                        props.pallete.name === "warning"
+                                            ? "white"
+                                            : "#876400",
                                     height: "30px",
                                     width: "30px",
                                     cursor: "pointer",
@@ -112,13 +136,13 @@ export default function Navbar(props) {
                                     props.updatePallete("warning");
                                 }}></div>
                             <div
-                                className={`bg-${
-                                    props.mode === "dark" &&
-                                    props.pallete.name === "danger"
-                                        ? "light"
-                                        : "danger"
-                                } rounded mx-2`}
+                                className={"rounded mx-2"}
                                 style={{
+                                    backgroundColor:
+                                        props.mode === "dark" &&
+                                        props.pallete.name === "danger"
+                                            ? "white"
+                                            : "#991a26",
                                     height: "30px",
                                     width: "30px",
                                     cursor: "pointer",
@@ -126,23 +150,8 @@ export default function Navbar(props) {
                                 onClick={() => {
                                     props.updatePallete("danger");
                                 }}></div>
-                            <div
-                                className={`bg-${
-                                    props.mode === "dark" &&
-                                    props.pallete.name === "dark"
-                                        ? "light"
-                                        : "dark"
-                                } rounded mx-2`}
-                                style={{
-                                    height: "30px",
-                                    width: "30px",
-                                    cursor: "pointer",
-                                }}
-                                onClick={() => {
-                                    props.updatePallete("dark");
-                                }}></div>
                         </div>
-                        <div className="form-check form-switch">
+                        <div className="form-check">
                             <input
                                 className="btn-check"
                                 type="checkbox"
@@ -151,11 +160,16 @@ export default function Navbar(props) {
                                 onClick={props.toggleMode}
                             />
                             <label
-                                className={`btn text-${
+                                className={`btn ${
+                                    props.mode === "light" ? "border-dark" : ""
+                                } text-${
                                     props.mode === "dark" ? "light" : "dark"
                                 }`}
                                 htmlFor="btn-check-4">
-                                Toggle Mode
+                                <i
+                                    className={`bi bi-${
+                                        props.mode === "light" ? "sun" : "moon"
+                                    }`}></i>
                             </label>
                         </div>
                     </div>

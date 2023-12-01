@@ -40,3 +40,8 @@
 .accordion-button::after {
   filter: var(--after-filter);
 }
+
+.remove-link-color{
+  color: inherit;
+  text-decoration: none;
+}

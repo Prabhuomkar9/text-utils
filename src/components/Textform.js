@@ -4,41 +4,62 @@ import { encode, decode } from "../logic/ceaser_cipher";
 export default function Textform(props) {
     const handleUppercaseClick = () => {
         setText(text.toUpperCase());
-        props.showAlert("Converted to uppercase", props.pallete[props.mode]);
+        props.showAlert(
+            "Converted to uppercase",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleLowerCaseClick = () => {
         setText(text.toLowerCase());
-        props.showAlert("Converted to lowercase", props.pallete[props.mode]);
+        props.showAlert(
+            "Converted to lowercase",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleRemoveExtraSpaces = () => {
         let ans = text.split(/[ ]+/);
         setText(ans.join(" "));
-        props.showAlert("Removed extra spaces", props.pallete[props.mode]);
+        props.showAlert(
+            "Removed extra spaces",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleRemoveUnwantedNewLines = () => {
         let ans = text.split(/[\n]+/);
         setText(ans.join("\n"));
         props.showAlert(
             "Removed unwanted new lines",
-            props.pallete[props.mode]
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
         );
     };
     const handleEncodeClick = () => {
         setText(encode(text));
-        props.showAlert("Text encoded", props.pallete[props.mode]);
+        props.showAlert(
+            "Text encoded",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleDecodeClick = () => {
         setText(decode(text));
-        props.showAlert("Text decoded", props.pallete[props.mode]);
+        props.showAlert(
+            "Text decoded",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
-        props.showAlert("Text copied to clipboard", props.pallete[props.mode]);
+        props.showAlert(
+            "Text copied to clipboard",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleClearClick = () => {
         setText("");
         setWordCount(0);
-        props.showAlert("Text cleared", props.pallete[props.mode]);
+        props.showAlert(
+            "Text cleared",
+            props.mode === "dark" ? props.pallete[props.mode] : "success"
+        );
     };
     const handleOnChange = (event) => {
         setText(event.target.value);
@@ -75,6 +96,7 @@ export default function Textform(props) {
                         value={text}
                         onChange={handleOnChange}
                         style={{
+                            height: "240px",
                             backgroundColor:
                                 props.mode === "dark"
                                     ? props.pallete.bgHeaderDark
@@ -87,82 +109,114 @@ export default function Textform(props) {
                         rows="8"></textarea>
                 </div>
                 <button
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
                     disabled={text.length === 0}
                     onClick={handleUppercaseClick}>
-                    Convert to Uppercase
+                    UPPERCASE
                 </button>
                 <button
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
                     disabled={text.length === 0}
                     onClick={handleLowerCaseClick}>
-                    Convert to Lowercase
+                    lowercase
                 </button>
                 <button
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
                     disabled={text.length === 0}
                     onClick={handleRemoveExtraSpaces}>
-                    Remove Extra Spaces
+                    rm Extra space
                 </button>
                 <button
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
                     disabled={text.length === 0}
                     onClick={handleRemoveUnwantedNewLines}>
-                    Remove Unwanted New Lines
+                    rm Extra newLine
                 </button>
                 <button
-                    disabled={text.length === 0}
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
+                    disabled={text.length === 0}
                     onClick={handleEncodeClick}>
-                    Ceaser Cipher Encode
+                    Ceaser Encode
                 </button>
                 <button
-                    disabled={text.length === 0}
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
+                    disabled={text.length === 0}
                     onClick={handleDecodeClick}>
-                    Ceaser Cipher Decode
+                    Ceaser Decode
                 </button>
                 <button
-                    disabled={text.length === 0}
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
+                    disabled={text.length === 0}
                     onClick={handleCopy}>
                     Copy to Clipboard
                 </button>
                 <button
-                    disabled={text.length === 0}
-                    className={`btn btn-${props.pallete.name} mx-1 my-1`}
+                    className={"btn mx-1 my-1"}
                     style={{
+                        backgroundColor:
+                            props.mode === "dark"
+                                ? props.pallete.bgHeaderDark
+                                : props.pallete.bgHeaderLight,
                         borderColor: "rgb(209,213,216)",
-                        color: "white",
+                        color: props.mode === "dark" ? "white" : "black",
                     }}
+                    disabled={text.length === 0}
                     onClick={handleClearClick}>
                     Clear
                 </button>

@@ -26,7 +26,14 @@ export default function About(props) {
 
     return (
         <div className="container" style={myStyle}>
-            <h1>About Us</h1>
+            <h1>
+                About Us{" "}
+                <a
+                    className="remove-link-color"
+                    href="https://github.com/Prabhuomkar9">
+                    <i class="bi bi-github"></i>
+                </a>
+            </h1>
             <div className="accordion my-3" id="accordionExample">
                 <div className="accordion-item">
                     <h2 className="accordion-header">

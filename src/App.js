@@ -8,54 +8,54 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
     const palletes = {
+        dark: {
+            name: "dark",
+            light: "light",
+            dark: "dark",
+            bg: "#212529",
+            bgLight: "#e4ebf3",
+            bgHeaderLight: "#cdddec",
+            bgHeaderDark: "#1d2124",
+            color: "white",
+        },
         success: {
             name: "success",
             light: "light",
             dark: "success",
-            bg: "#198754",
-            bgLight: "#9affd0",
-            bgHeaderLight: "#79fabe",
-            bgHeaderDark: "#177f4f",
+            bg: "#0b4429",
+            bgLight: "#e4ebf3",
+            bgHeaderLight: "#cdddec",
+            bgHeaderDark: "#0a3b24",
             color: "white",
         },
         primary: {
             name: "primary",
             light: "light",
             dark: "primary",
-            bg: "#0d6efd",
-            bgLight: "#82b4ff",
-            bgHeaderLight: "#589bff",
-            bgHeaderDark: "#005feb",
+            bg: "#00245d",
+            bgLight: "#e4ebf3",
+            bgHeaderLight: "#cdddec",
+            bgHeaderDark: "#002155",
             color: "white",
         },
         warning: {
             name: "warning",
             light: "light",
             dark: "warning",
-            bg: "#ffc107",
-            bgLight: "#ffe28d",
-            bgHeaderLight: "#ffd760",
-            bgHeaderDark: "#f5b700",
+            bg: "#876400",
+            bgLight: "#e4ebf3",
+            bgHeaderLight: "#cdddec",
+            bgHeaderDark: "#775800",
             color: "white",
         },
         danger: {
             name: "danger",
             light: "light",
             dark: "danger",
-            bg: "#dc3545",
-            bgLight: "#ff6f7d",
-            bgHeaderLight: "#f95767",
-            bgHeaderDark: "#d02636",
-            color: "white",
-        },
-        dark: {
-            name: "dark",
-            light: "light",
-            dark: "dark",
-            bg: "#212529",
-            bgLight: "#bdcdde",
-            bgHeaderLight: "#b2c1d1",
-            bgHeaderDark: "#1d2124",
+            bg: "#991a26",
+            bgLight: "#e4ebf3",
+            bgHeaderLight: "#cdddec",
+            bgHeaderDark: "#8b1823",
             color: "white",
         },
     };
@@ -104,17 +104,15 @@ function App() {
                 toggleMode={toggleMode}
                 updatePallete={updatePallete}
                 pallete={pallete}
+                alert={alert}
             />
-            <div className="container">
-                <Alert alert={alert} pallete={pallete.name} />
-            </div>
             <div className="container my-3">
                 <Routes>
                     <Route
                         path="/"
                         element={
                             <Textform
-                                heading="Try TextUtils - Word Counter, Character Counter, Remove extra spaces"
+                                heading="Try TextUtils Today!!!"
                                 mode={mode}
                                 pallete={pallete}
                                 showAlert={showAlert}
@@ -126,6 +124,16 @@ function App() {
                         element={<About mode={mode} pallete={pallete} />}
                     />
                 </Routes>
+                <div
+                    className="container-fluid"
+                    style={{
+                        position: "fixed",
+                        bottom: "0",
+                        right: "0",
+                        width: "max-content",
+                    }}>
+                    <Alert alert={alert} pallete={pallete.name} />
+                </div>
             </div>
         </BrowserRouter>
     );
