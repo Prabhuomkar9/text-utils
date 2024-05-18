@@ -1,3 +1,7 @@
+### Note: Not my code obviously, CodeWithHarry React code, i was learning and just put it into a repo, dont want to delete itm uk memories
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
